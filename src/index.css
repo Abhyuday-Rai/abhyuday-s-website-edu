@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --radius: 0.5rem;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 265 89% 78%; /* Purple for the social arrow */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 265 89% 78%;
+    --highlight-purple: 265 89% 78%; /* Adding this for consistent purple highlight */
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  *::selection {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', sans-serif;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .portfolio-card {
+    @apply bg-card text-card-foreground border border-border p-6 transition-all duration-300 hover:border-foreground/20;
+  }
+
+  .portfolio-card:hover .card-arrow {
+    animation: arrow-move 0.5s ease-in-out;
+  }
+
+  .portfolio-card:hover {
+    animation: card-hover 0.5s ease-in-out;
+  }
+
+  .outline-text {
+    -webkit-text-stroke: 1px white;
+    color: transparent;
+  }
+  
+  .glass-morphism {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes arrow-move {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes card-hover {
+  0% {
+    box-shadow: 0 0 0 rgba(192, 132, 252, 0);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(192, 132, 252, 0);
+  }
+}
+
+#root {
+  @apply max-w-full m-0 p-0 text-left;
+}
+
+html {
+  scroll-behavior: smooth;
+}
