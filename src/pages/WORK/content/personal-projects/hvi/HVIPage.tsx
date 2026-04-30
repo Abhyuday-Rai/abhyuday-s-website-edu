@@ -24,7 +24,7 @@ const HVIProject: React.FC = () => {
   const previousProject = currentIndex > 0 ? navigationProjects[currentIndex - 1] : undefined;
   const nextProject = currentIndex < navigationProjects.length - 1 ? navigationProjects[currentIndex + 1] : undefined;
 
-  const hviBannerImage = '/lovable-uploads/7912afa8-ea0b-446b-b34b-6b353108fb4a.png';
+  const hviBannerImage = '/uploads/7912afa8-ea0b-446b-b34b-6b353108fb4a.png';
 
   const hviData = {
     title: 'HVI - High Voltage Indicator',

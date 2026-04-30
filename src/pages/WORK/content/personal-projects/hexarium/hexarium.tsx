@@ -6,7 +6,7 @@ export const hexariumProject: Project = {
   description: 'A wifi router ups designed for ultrafast switching',
   category: 'personal',
   date: 'August 9 2022',
-  image: '/lovable-uploads/7912afa8-ea0b-446b-b34b-6b353108fb4a.png',
+  image: '/uploads/7912afa8-ea0b-446b-b34b-6b353108fb4a.png',
   link: '/project/hexarium',
   allRank: 2,
   categoryRank: 1,
