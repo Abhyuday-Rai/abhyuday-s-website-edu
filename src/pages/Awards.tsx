@@ -7,28 +7,16 @@ import { Award } from 'lucide-react';
 const Awards = () => {
   const awards = [
     {
-      name: 'Design Excellence Award',
-      organization: 'Design Association',
-      year: '2023',
-      link: '/awards/design-excellence-award' // Add a link for this award
+      name: 'Overall Winner AIR 1',
+      organization: 'Formula Bharat 2026',
+      year: '2026',
+      link: 'https://formulabharat.com/formula-bharat-2026-results/' // Add a link for this award
     },
     {
-      name: 'Best Portfolio Website',
-      organization: 'Web Design Awards',
-      year: '2022',
-      link: '/awards/best-portfolio-website' // Add a link for this award
-    },
-    {
-      name: 'Innovation in Digital Design',
-      organization: 'Digital Arts Foundation',
-      year: '2021',
-      link: '/awards/innovation-digital-design' // Add a link for this award
-    },
-    {
-      name: 'User Experience Achievement',
-      organization: 'UX Society',
-      year: '2020',
-      link: '/awards/user-experience-achievement' // Add a link for this award
+      name: 'Overall Winner AIR 1',
+      organization: 'SAE Supra 2025',
+      year: '2025',
+      link: '' // Add a link for this award
     },
   ];
 
@@ -52,32 +40,30 @@ const Awards = () => {
           
           <div className="max-w-3xl mx-auto px-0 sm:px-2">
             {awards.map((award, index) => (
-              <a
-                href={award.link} // Use the link property
+              <motion.div 
                 key={index}
-                target="_blank" // Open in a new tab
-                rel="noopener noreferrer" // Security best practice
-                className="block"
+                className={`portfolio-card mb-4 sm:mb-6 flex items-start ${award.link ? 'cursor-pointer' : 'cursor-default'}`}
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 + (index * 0.1), duration: 0.6 }}
+                whileHover={award.link ? { 
+                  x: 10,
+                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  transition: { duration: 0.2 }
+                } : {}}
+                onClick={() => {
+                  if (award.link) {
+                    window.open(award.link, '_blank', 'noopener,noreferrer');
+                  }
+                }}
               >
-                <motion.div 
-                  className="portfolio-card mb-4 sm:mb-6 flex items-start"
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 + (index * 0.1), duration: 0.6 }}
-                  whileHover={{ 
-                    x: 10,
-                    backgroundColor: 'rgba(255,255,255,0.03)',
-                    transition: { duration: 0.2 }
-                  }}
-                >
-                  <Award className="h-8 w-8 mr-4 mt-1 text-yellow-300" />
-                  <div>
-                    <h3 className="text-2xl font-bold">{award.name}</h3>
-                    <p className="text-gray-400">{award.organization}</p>
-                    <p className="text-sm mt-2">{award.year}</p>
-                  </div>
-                </motion.div>
-              </a>
+                <Award className="h-8 w-8 mr-4 mt-1 text-yellow-300" />
+                <div>
+                  <h3 className="text-2xl font-bold">{award.name}</h3>
+                  <p className="text-gray-400">{award.organization}</p>
+                  <p className="text-sm mt-2">{award.year}</p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>

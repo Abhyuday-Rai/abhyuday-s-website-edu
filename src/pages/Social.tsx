@@ -18,7 +18,7 @@ const Social = () => {
       id: 'linkedin',
       name: 'LinkedIn',
       icon: <Linkedin size={40} />,
-      url: 'https://linkedin.com/',
+      url: 'www.linkedin.com/in/abhyudayrai2006',
       color: 'hover:bg-blue-600'
     },
     {
@@ -32,14 +32,14 @@ const Social = () => {
       id: 'email',
       name: 'Email',
       icon: <Mail size={40} />,
-      url: 'mailto:contact@example.com',
+      url: 'mailto:abhyudayrai2006@gmail.com',
       color: 'hover:bg-red-600'
     },
     {
       id: 'instagram',
       name: 'Instagram',
       icon: <Instagram size={40} />,
-      url: 'https://instagram.com/',
+      url: 'https://www.instagram.com/sily_conductor79/',
       color: 'hover:bg-pink-600'
     }
   ];

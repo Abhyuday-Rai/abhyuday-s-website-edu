@@ -60,6 +60,13 @@
     @apply bg-card text-card-foreground border border-border p-6 transition-all duration-300 hover:border-foreground/20;
   }
 
+  @media (max-width: 639px) {
+    .landing-phone-safe {
+      padding-top: calc(1rem + env(safe-area-inset-top, 0px));
+      padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
   .portfolio-card:hover .card-arrow {
     animation: arrow-move 0.5s ease-in-out;
   }

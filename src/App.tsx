@@ -9,6 +9,10 @@ import Awards from "./pages/Awards";
 import Patents from "./pages/Patents";
 import Store from "./pages/Store";
 import LandingPage from "./pages/Landingpage";
+import HVIProject from "./pages/WORK/content/personal-projects/hvi/HVIPage";
+import HexariumProject from "./pages/WORK/content/personal-projects/hexarium/HexariumPage";
+import VeloceProject from "./pages/WORK/content/previous-work-experience/veloce/VelocePage";
+import BSPDProject from "./pages/WORK/content/previous-work-experience/bspd/BSPDPage";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +33,10 @@ const App = () => (
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/project/hvi" element={<HVIProject />} />
+        <Route path="/project/hexarium" element={<HexariumProject />} />
+        <Route path="/project/veloce" element={<VeloceProject />} />
+        <Route path="/project/bspd" element={<BSPDProject />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/social" element={<Social />} />
         <Route path="/awards" element={<Awards />} />

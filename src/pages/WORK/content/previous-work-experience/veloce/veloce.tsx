@@ -1,16 +1,15 @@
 import type { Project } from '../../projects';
-import vee from './veloce_media/vee.avif';
 
 export const veloceRacingElectricProject: Project = {
-  id: 4,
+  id: 3,
   title: 'Veloce Racing Electric',
   description: 'Formula Student electric racing vehicle development project',
   category: 'previous',
   date: 'Oct 2024 - Present',
-  image: vee,
-  link: '/projects/redesign',
-  allRank: 4,
-  categoryRank: 1,
+  image: new URL('./veloce_media/vee.avif', import.meta.url).href,
+  link: '/project/veloce',
+  allRank: 3,
+  categoryRank: 3,
   passwordEnabled: false,
   password: '2006',
 };

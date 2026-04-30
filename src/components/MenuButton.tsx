@@ -29,7 +29,13 @@ const MenuButton = () => {
   const menuIconPath = '/menubuttonsvg.svg';
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    const openingMenu = !isOpen;
+
+    if (openingMenu && window.innerWidth < 640) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+
+    setIsOpen(openingMenu);
   };
 
   const goToPage = (path: string) => {
@@ -38,9 +44,9 @@ const MenuButton = () => {
   };
 
   return (
-    <div className="fixed top-0 right-0 z-50">
+    <div className="fixed top-0 right-0 z-50 p-2 sm:p-3 lg:p-4">
       <motion.button
-        className="p-3 sm:p-4 lg:p-6 focus:outline-none"
+        className="focus:outline-none"
         onClick={toggleMenu}
         aria-label={isOpen ? "Close menu" : "Open menu"}
         whileTap={{ scale: 0.95 }}
@@ -68,7 +74,7 @@ const MenuButton = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            className="fixed inset-0 bg-background flex flex-col items-center justify-center z-40"
+            className="fixed inset-0 bg-background flex flex-col items-start justify-start overflow-y-auto z-40 pt-8 sm:items-center sm:justify-center sm:pt-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

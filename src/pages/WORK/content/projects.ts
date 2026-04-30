@@ -13,9 +13,13 @@ export interface Project {
 }
 
 import { hexariumProject } from './personal-projects/hexarium/hexarium';
+import { hviProject } from './personal-projects/hvi/hvi';
 import { veloceRacingElectricProject } from './previous-work-experience/veloce/veloce';
+import { bspdProject } from './previous-work-experience/bspd/bspd';
 
 export const projects: Project[] = [
+  hviProject,
   hexariumProject,
   veloceRacingElectricProject,
+  bspdProject,
 ];

@@ -17,11 +17,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   
   return (
-    <div className="min-h-screen bg-background text-foreground relative flex flex-col">
+    <div className="min-h-screen bg-background text-foreground relative flex flex-col" style={{ minHeight: '100dvh' }}>
       <MenuButton />
       
       <motion.div 
-        className="container mx-auto w-full flex-1 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-10 sm:pb-12"
+        className="container mx-auto w-full flex-1 px-3 sm:px-6 lg:px-8 pb-8 sm:pb-10 md:pb-12"
+        style={{
+          paddingTop: 'clamp(2.4rem, 8vw, 5rem)'
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: pageLoaded ? 1 : 0 }}
         transition={{ duration: 0.6 }}
@@ -36,9 +39,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </motion.div>
       </motion.div>
 
-      <div className="mt-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6">
-        <div className="container mx-auto text-xs sm:text-sm text-muted-foreground">
-        © 2025 Abhyuday Rai-all rights reserved.
+      <div className="mt-auto px-3 sm:px-6 lg:px-8 pb-6 sm:pb-8 md:pb-10">
+        <div className="container mx-auto text-xs sm:text-sm text-muted-foreground text-center">
+        © 2025 Abhyuday Rai - all rights reserved.
         </div>
       </div>
     </div>

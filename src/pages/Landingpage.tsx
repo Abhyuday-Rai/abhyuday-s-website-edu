@@ -46,31 +46,31 @@ const LandingPage: React.FC = () => {
     <>
       <Navbar /> {/* Place the Navbar outside the Layout */}
       <Layout>
-        <div className="bg-background text-foreground">
-          <div className="border-b border-border/80 mb-8 sm:mb-12" />
+        <div className="landing-phone-safe bg-background text-foreground">
+          <div className="border-b border-border/80 mb-3 sm:mb-5 md:mb-8" />
 
           {/* Intro screen: only this block is visible on first landing viewport */}
-          <section className="min-h-[calc(100svh-180px)] flex items-start">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full max-w-7xl mx-auto pt-6 sm:pt-10 lg:px-2">
-              <div className="space-y-4 sm:space-y-5">
-                <h1 className="font-aldrich text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
+          <section className="min-h-fit flex items-start py-4 sm:py-6 md:py-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12 w-full max-w-7xl mx-auto lg:px-2">
+              <div className="space-y-3 sm:space-y-4">
+                <h1 className="font-aldrich text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
                   <span className="block text-foreground/90 lowercase">hi I&apos;m</span>
-                  <span className="block mt-2">Abhyuday Rai</span>
+                  <span className="block mt-1">Abhyuday Rai</span>
                 </h1>
 
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">
-                I’m currently pursuing my bachelor’s in Electronics and Telecommunication Engineering. I enjoy designing and building hardware, especially in areas like power electronics, analog devices, and IC design. Beyond core electronics, I’m also interested in 3D printing and automobiles, which is why I’m actively working with my college’s FSAE team. I like getting hands-on with projects, figuring things out as I go, and turning ideas into something real.
+                <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-snug max-w-xl">
+                I'm currently pursuing my bachelor's in Electronics and Telecommunication Engineering. I enjoy designing and building hardware, especially in areas like power electronics, analog devices, and IC design. Beyond core electronics, I'm also interested in 3D printing and automobiles, which is why I'm actively working with my college's FSAE team. I like getting hands-on with projects, figuring things out as I go, and turning ideas into something real.
                 </p>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">
-                  BTW did you know I like cooking, i mean cooking circuits.
+                <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-snug max-w-xl">
+                  BTW did you know I like cooking, I mean cooking circuits.
                 </p>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">
+                <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-snug max-w-xl">
                   This portfolio highlights my works, projects and experiments.
                 </p>
               </div>
 
               <div
-                className="relative w-full h-[240px] sm:h-[320px] lg:h-[360px] rounded-md overflow-hidden bg-background"
+                className="relative w-full h-[180px] sm:h-[260px] md:h-[320px] lg:h-[360px] rounded-md overflow-hidden bg-background"
                 onMouseMove={maybeSwapLandingMedia}
               >
                 <AnimatePresence mode="wait">
@@ -96,42 +96,42 @@ const LandingPage: React.FC = () => {
           </section>
 
           {/* Scroll section: appears after user scrolls down */}
-          <section className="py-16 sm:py-20 lg:py-24 space-y-10 sm:space-y-12">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-y-5 sm:gap-x-[5%] max-w-6xl mx-auto">
+          <section className="py-16 sm:py-20 md:py-24 lg:py-28 space-y-8 sm:space-y-10 pb-12 sm:pb-14 md:pb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-y-4 sm:gap-x-[5%] max-w-6xl mx-auto">
               <a
                 href={resumeDriveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative overflow-hidden flex items-center justify-between rounded-xl bg-zinc-100 text-zinc-900 px-5 py-4 sm:px-6 sm:py-5"
+                className="group relative overflow-hidden flex items-center justify-between rounded-xl bg-zinc-100 text-zinc-900 px-4 py-3 sm:px-6 sm:py-4"
               >
                 <span className="absolute inset-0 bg-purple-500 origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
-                <span className="relative z-10 text-2xl sm:text-3xl font-semibold transition-colors duration-300 group-hover:text-white">Resume</span>
-                <ArrowUpRight className="relative z-10 h-7 w-7 transition-all duration-300 group-hover:text-white group-hover:rotate-45" />
+                <span className="relative z-10 text-xl sm:text-3xl font-semibold transition-colors duration-300 group-hover:text-white">Resume</span>
+                <ArrowUpRight className="relative z-10 h-6 w-6 sm:h-7 sm:w-7 transition-all duration-300 group-hover:text-white group-hover:rotate-45" />
               </a>
 
               <Link
                 to="/work"
-                className="group relative overflow-hidden flex items-center justify-between rounded-xl bg-zinc-100 text-zinc-900 px-5 py-4 sm:px-6 sm:py-5"
+                className="group relative overflow-hidden flex items-center justify-between rounded-xl bg-zinc-100 text-zinc-900 px-4 py-3 sm:px-6 sm:py-4"
               >
                 <span className="absolute inset-0 bg-purple-500 origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
-                <span className="relative z-10 text-2xl sm:text-3xl font-semibold uppercase transition-colors duration-300 group-hover:text-white">Projects</span>
-                <ArrowUpRight className="relative z-10 h-7 w-7 transition-all duration-300 group-hover:text-white group-hover:rotate-45" />
+                <span className="relative z-10 text-xl sm:text-3xl font-semibold uppercase transition-colors duration-300 group-hover:text-white">Projects</span>
+                <ArrowUpRight className="relative z-10 h-6 w-6 sm:h-7 sm:w-7 transition-all duration-300 group-hover:text-white group-hover:rotate-45" />
               </Link>
 
               <Link
                 to="/social"
-                className="group relative overflow-hidden flex items-center justify-between rounded-xl bg-zinc-100 text-zinc-900 px-5 py-4 sm:px-6 sm:py-5"
+                className="group relative overflow-hidden flex items-center justify-between rounded-xl bg-zinc-100 text-zinc-900 px-4 py-3 sm:px-6 sm:py-4"
               >
                 <span className="absolute inset-0 bg-purple-500 origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
                 <div className="relative z-10 leading-tight transition-colors duration-300 group-hover:text-white">
-                  <span className="block text-2xl sm:text-3xl font-semibold uppercase">Contact</span>
-                  <span className="block text-[11px] sm:text-xs tracking-wide uppercase text-zinc-700 mt-1 transition-colors duration-300 group-hover:text-zinc-200">abhyudayrai2006@gmail.com</span>
+                  <span className="block text-xl sm:text-3xl font-semibold uppercase">Contact</span>
+                  <span className="block text-[10px] sm:text-xs tracking-wide uppercase text-zinc-700 mt-0.5 transition-colors duration-300 group-hover:text-zinc-200">abhyudayrai2006@gmail.com</span>
                 </div>
-                <ArrowUpRight className="relative z-10 h-7 w-7 transition-all duration-300 group-hover:text-white group-hover:rotate-45" />
+                <ArrowUpRight className="relative z-10 h-6 w-6 sm:h-7 sm:w-7 transition-all duration-300 group-hover:text-white group-hover:rotate-45" />
               </Link>
             </div>
 
-            <p className="text-center text-xl sm:text-3xl text-muted-foreground">
+            <p className="text-center text-lg sm:text-2xl md:text-3xl text-muted-foreground">
               &ldquo;rest everything is in the menu&rdquo;
             </p>
           </section>

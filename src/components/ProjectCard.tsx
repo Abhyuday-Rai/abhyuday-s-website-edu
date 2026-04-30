@@ -10,6 +10,7 @@ interface ProjectCardProps {
   link: string; // Add the link prop
   passwordEnabled: boolean;
   password: string;
+  source?: string; // 'all' or 'category' - used for smart navigation
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -20,6 +21,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   link,
   passwordEnabled,
   password,
+  source = 'category',
 }) => {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [enteredPassword, setEnteredPassword] = useState('');
@@ -31,36 +33,37 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     setPasswordError('');
   };
 
-  const handleProjectClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!passwordEnabled) {
-      return;
-    }
-
-    event.preventDefault();
-    setIsPasswordModalOpen(true);
-    setEnteredPassword('');
-    setPasswordError('');
-  };
-
   const handlePasswordSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (enteredPassword === password) {
       closePasswordModal();
-      window.open(link, '_blank', 'noopener,noreferrer');
+      const urlWithSource = `${link}?source=${source}`;
+      window.open(urlWithSource, '_blank', 'noopener,noreferrer');
       return;
     }
 
     setPasswordError('Incorrect password. Please try again.');
   };
 
+  const handleCardClick = () => {
+    // Check if project is password protected
+    if (passwordEnabled) {
+      setIsPasswordModalOpen(true);
+      setEnteredPassword('');
+      setPasswordError('');
+      return;
+    }
+    
+    // Open in new tab from work page with source parameter for smart navigation
+    const urlWithSource = `${link}?source=${source}`;
+    window.open(urlWithSource, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <>
-      <motion.a
-        href={link}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={handleProjectClick}
+      <motion.div
+        onClick={handleCardClick}
         className="block rounded-3xl overflow-hidden bg-card text-card-foreground border border-border cursor-pointer group md:flex md:min-h-[360px]"
         whileHover={{ y: -5 }}
       >
@@ -77,18 +80,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="mb-8">
             <div className="mb-4">
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight max-w-md">{title}</h3>
-              <p className="mt-2 inline-flex rounded-full border border-border px-3 py-1 text-xs sm:text-sm font-medium text-foreground/90">
-                {date}
-              </p>
             </div>
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed">{description}</p>
+            <p className="mt-2 inline-flex rounded-full border border-border px-3 py-1 text-xs sm:text-sm font-medium text-foreground/90">
+              {date}
+            </p>
+            <p className="mt-4 text-sm sm:text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed">{description}</p>
           </div>
           <span className="bg-foreground text-background px-4 sm:px-5 py-2.5 rounded-full flex items-center font-medium group-hover:bg-purple-500 group-hover:text-white transition-colors w-fit text-sm sm:text-base">
             EXPLORE
             <ArrowUpRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:rotate-45" />
           </span>
         </div>
-      </motion.a>
+      </motion.div>
 
       {isPasswordModalOpen && (
         <div
@@ -104,7 +107,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             className="w-full max-w-md rounded-2xl border border-purple-500/40 bg-black px-5 py-6 sm:px-6 shadow-[0_0_45px_rgba(168,85,247,0.25)]"
           >
             <h4 className="text-lg sm:text-xl font-semibold text-white">Project Locked</h4>
-            <p className="mt-2 text-sm text-zinc-300">Enter the password to open {title}.</p>
+            <p className="mt-2 text-sm text-zinc-300">Sorry this project is locked.</p>
+            <p className="mt-1 text-sm text-zinc-400">Enter the password to open {title}.</p>
 
             <form onSubmit={handlePasswordSubmit} className="mt-5 space-y-4">
               <input

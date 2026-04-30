@@ -96,6 +96,7 @@ const Work = () => {
                     link={project.link} // Pass the link prop
                     passwordEnabled={project.passwordEnabled}
                     password={project.password}
+                    source={activeCategory === 'all' ? 'all' : 'category'}
                   />
                 </motion.div>
               ))}
