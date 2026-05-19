@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProjectDetail from '../../../../../components/ProjectDetail';
 import { projects } from '../../projects';
@@ -94,11 +94,95 @@ Hexarium represents a new standard in home network reliability, combining engine
   };
 
   return (
-    <ProjectDetail
-      project={hexariumData}
-      previousProject={previousProject ? { title: previousProject.title, link: `${previousProject.link}?source=${source}` } : undefined}
-      nextProject={nextProject ? { title: nextProject.title, link: `${nextProject.link}?source=${source}` } : undefined}
-    />
+    <div>
+      {/* Password-protected PDF view */}
+      <PdfLocker project={hexariumData} previousProject={previousProject} nextProject={nextProject} source={source} />
+    </div>
+  );
+};
+
+type NavProj = { title: string; link: string } | undefined;
+
+const PdfLocker: React.FC<{ project: any; previousProject: any; nextProject: any; source: string }> = ({ project, previousProject, nextProject, source }) => {
+  const STORAGE_KEY = 'hexarium_unlocked_v1';
+  const [unlocked, setUnlocked] = useState<boolean>(() => {
+    try {
+      return sessionStorage.getItem(STORAGE_KEY) === '1';
+    } catch (e) {
+      return false;
+    }
+  });
+  const [password, setPassword] = useState('');
+  const correct = '12345';
+
+  useEffect(() => {
+    if (unlocked) {
+      try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+    }
+  }, [unlocked]);
+
+  const tryUnlock = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (password === correct) setUnlocked(true);
+    else alert('Incorrect password');
+  };
+
+  // Path where the PDF should be placed in the built app/public folder
+  const pdfPath = '/hexarium/OS_Lab_Solutions.md.pdf';
+
+  if (unlocked) {
+    return (
+      // Fullscreen-ish embedded PDF viewer; does not open a new tab
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        <div style={{ padding: 8, background: '#111', color: '#fff', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button onClick={() => { setUnlocked(false); try { sessionStorage.removeItem(STORAGE_KEY); } catch(e){} }} style={{ padding: '6px 10px' }}>Lock</button>
+          <div style={{ fontWeight: 600 }}>{project.title} — Protected Document</div>
+        </div>
+        <iframe src={pdfPath} title="Hexarium PDF" style={{ flex: 1, border: 'none' }} />
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70vh', padding: '24px' }}>
+      <form onSubmit={tryUnlock} style={{ padding: '40px', background: '#fff', borderRadius: '8px', border: '1px solid #e5e5e5', maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+        <h2 style={{ marginTop: 0, marginBottom: '8px', fontSize: '20px', fontWeight: '600' }}>Protected Document</h2>
+        <p style={{ color: '#666', marginBottom: '24px' }}>Enter password to view the protected content</p>
+        <input 
+          autoFocus 
+          value={password} 
+          onChange={e => setPassword(e.target.value)} 
+          type="password" 
+          placeholder="Enter password" 
+          style={{ 
+            padding: '10px 12px', 
+            width: '100%',
+            boxSizing: 'border-box',
+            border: '1px solid #ddd', 
+            borderRadius: '4px',
+            fontSize: '14px',
+            marginBottom: '16px'
+          }} 
+        />
+        <button 
+          type="submit" 
+          style={{ 
+            width: '100%',
+            padding: '10px 16px',
+            background: '#000',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: 'pointer'
+          }}
+        >
+          Unlock
+        </button>
+        <p style={{ marginTop: '16px', fontSize: '12px', color: '#999' }}>Contact project owner for password access</p>
+      </form>
+    </div>
   );
 };
 

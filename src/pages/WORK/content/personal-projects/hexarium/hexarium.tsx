@@ -11,7 +11,7 @@ export const hexariumProject: Project = {
   allRank: 2,
   categoryRank: 1,
   passwordEnabled: false,
-  password: '2006',
+  password: '',
 };export default function Hexarium() {
   return null;
 }
