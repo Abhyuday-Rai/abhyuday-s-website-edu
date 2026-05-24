@@ -8,8 +8,8 @@ export const veloceRacingElectricProject: Project = {
   date: 'Oct 2024 - Present',
   image: new URL('./veloce_media/vee.avif', import.meta.url).href,
   link: '/project/veloce',
-  allRank: 3,
-  categoryRank: 3,
+  allRank: 1,
+  categoryRank: 1,
   passwordEnabled: false,
   password: '2006',
 };

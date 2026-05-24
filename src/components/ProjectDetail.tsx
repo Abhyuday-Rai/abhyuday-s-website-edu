@@ -13,6 +13,12 @@ interface ProjectDetailProps {
     sections: Array<{
       heading: string;
       content: string;
+      image?: string;
+      imageDescription?: string;
+      pdfFile?: string;
+      pdfPreviewImage?: string;
+      collageImages?: Array<{ src: string; alt: string }>;
+      collageDescription?: string;
     }>;
     category?: string;
   };
@@ -96,6 +102,83 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                   <p key={idx}>{paragraph}</p>
                 ))}
               </div>
+              {section.image && (
+                <div className="mt-6 sm:mt-8">
+                  <div className="flex justify-center">
+                    <div className="w-full max-w-2xl">
+                      <motion.img
+                        src={section.image}
+                        alt={section.heading}
+                        className="w-full h-auto rounded-lg shadow-lg object-cover"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6 }}
+                      />
+                    </div>
+                  </div>
+                  {section.imageDescription && (
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-3 text-center italic">
+                      {section.imageDescription}
+                    </p>
+                  )}
+                </div>
+              )}
+              {section.pdfFile && (
+                <div className="mt-6 sm:mt-8">
+                  {section.pdfPreviewImage && (
+                    <div className="flex justify-center mb-4">
+                      <div className="w-full max-w-4xl">
+                        <motion.img
+                          src={section.pdfPreviewImage}
+                          alt="PDF Preview"
+                          className="w-full h-auto rounded-lg shadow-lg"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.6 }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex justify-center">
+                    <motion.a
+                      href={section.pdfFile}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                      View PDF
+                    </motion.a>
+                  </div>
+                </div>
+              )}
+              {section.collageImages && section.collageImages.length > 0 && (
+                <div className="mt-6 sm:mt-8">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                    {section.collageImages.map((img, imgIndex) => (
+                      <motion.img
+                        key={imgIndex}
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full h-40 sm:h-48 md:h-56 rounded-lg shadow-lg object-cover hover:shadow-xl transition-shadow"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: imgIndex * 0.1 }}
+                      />
+                    ))}
+                  </div>
+                  {section.collageDescription && (
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-3 text-center italic">
+                      {section.collageDescription}
+                    </p>
+                  )}
+                </div>
+              )}
             </motion.div>
           ))}
         </motion.div>

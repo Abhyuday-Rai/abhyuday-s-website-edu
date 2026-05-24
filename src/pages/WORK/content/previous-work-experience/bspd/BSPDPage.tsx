@@ -24,84 +24,98 @@ const BSPDProject: React.FC = () => {
   const previousProject = currentIndex > 0 ? navigationProjects[currentIndex - 1] : undefined;
   const nextProject = currentIndex < navigationProjects.length - 1 ? navigationProjects[currentIndex + 1] : undefined;
 
-  const bspdBannerImage = new URL('./media_media/bspdedp1.png', import.meta.url).href;
+  const bspdBannerImage = new URL('./BSPD_media/bspdedp1.png', import.meta.url).href;
 
   const bspdData = {
-    title: 'BSPD - Brake System Proportioning Device',
+    title: 'BSPD - Brake System Plausibility Device',
     date: 'JAN 2025 - MAR 2025',
     category: 'previous',
     image: bspdBannerImage,
     sections: [
       {
         heading: 'Project Overview',
-        content: `The Brake System Proportioning Device (BSPD) is a critical safety system designed for the Veloce Racing Electric Formula Student vehicle. This system monitors brake pressure distribution and ensures proper proportioning between front and rear braking forces during acceleration events.
+        content: `The Brake System Plausibility Device (BSPD) is a critical safety system in FSAE. the circuit was designed for Veloce Racing Electric. This circuit is special because this was the very first circuit I was assigned to design in my FSAE journey, as my first circuit this took longer than usual and my senior was definately not happy with it LOL.
 
-According to SAE Formula Student regulations, the BSPD must detect when the brake pressure exceeds certain thresholds during acceleration, indicating a potential brake failure or driver error. The system provides both visual and audible feedback to the driver in such scenarios.`,
+                   The primary objective of the BSPD circuit is to prevent hard braking in the vehicle.  as soon as the current sesnor reads  a current more than 5Kw and the brake pressure is more than 30 bars the BSPD should actuate and open the shutdown line cutting off the power to the tractive system.`,
       },
       {
-        heading: 'System Architecture',
-        content: `The BSPD system comprises several key components:
+        heading: 'Change Log',
+        content: `The cicuit was to be redesigned for the upcomming season of 2026 and the below goals were to be achieved.:
 
-1. Brake Pressure Sensors - High-precision pressure transducers on both front and rear brake lines that continuously monitor hydraulic pressure.
+                   <span style="color: #ffffff; font-weight: bold;">1. changing the manual power reset to an automatic reset of the vehicle after 10s of no fault condition,</span> 
+          as per    T11.6.1  of  FB2026 rule book "The shutdown circuit must remain open until power cycling the LVMS or the BSPD may 
+reset itself if the opening condition is no longer present for more than 10 s."
 
-2. Acceleration Detection - Accelerometer or integration with the vehicle's CAN bus to detect acceleration events.
+this was achieved by adding a 555 timer IC based retrigerable monostatble circuit that would start the 10sec timer as soon as a fault appeared and went.
 
-3. Microcontroller - Central processing unit that compares brake pressure against programmed thresholds and manages system logic.
+<span style="color: #ffffff; font-weight: bold;"> 2. changing the logic  level of the circuit from  5v to 12v in order to eliminate the need for a buck converter as the BSPD can directly run on 12 LV system </span>- this was achieved by changing the logic family from ls7400 series that can handle voltages upto 5v  to  CD4000 series CMOS logic family that can easily handle higher voltages like 12 hence decreasing the BOM of the entire pcb by reducing the buck converter and the pull up and pull down resisitors.
 
-4. Alert System - LED indicators and buzzer to alert the driver of brake system anomalies.
-
-5. Logging System - Data recording for post-event analysis and debugging.`,
+ <span style="color: #ffffff; font-weight: bold;"> 3. Aligning with the teams goal of reducing the vehicle's overall weight the circuit was to be made smaller and more compact to save space and weight.</span>
+`,
       },
+      
       {
         heading: 'Circuit Design',
-        content: `The BSPD circuit was designed with multiple layers of protection and redundancy:
+        content: `With the above design goals i with my friends started to brainstorm ideas.:
 
-- Pressure sensor signal conditioning with differential filtering to eliminate noise and EMI interference
-- Dual-channel comparators for independent threshold detection
-- Protective circuitry against voltage spikes and sensor faults
-- Isolated power supply for sensor circuits to prevent ground loop issues
-- Watchdog timer for system health monitoring and automatic shutdown in case of microcontroller failure
+the flow of the circuit is as follows:
 
-The design emphasizes reliability and deterministic behavior under all operating conditions, including extreme acceleration and deceleration scenarios.`,
-      },
+1) The circuit receives power, GND, and two input signals: the current sensor signal and the brake pressure sensor signal.
+
+2) The circuit takes the two input signals and passes them through a window comparator to check for fault conditions. If a fault occurs, the comparator output is set high, which is then passed through a 500 ms RC delay block as mentioned in the rulebook.
+
+3)  If the fault still persists after the 500 ms delay, the output of the RC delay block goes high and triggers the retriggerable monostable circuit, which opens the shutdown line using a mechanical relay. Once the fault has disappeared, the timer starts a 10-second countdown, and after the 10 seconds have elapsed, the relay closes again and completes the shutdown line.
+
+4) the 2 RC delay blocks were calculated using the standard RC delay formula.`,
+      
+},
       {
-        heading: 'Control Logic & Thresholds',
-        content: `The BSPD implements sophisticated control logic based on SAE regulations:
-
-- Threshold Detection: Monitors brake pressure during acceleration and compares against programmed limits
-- Time Filtering: Uses software debouncing to filter transient pressure spikes and avoid false alarms
-- State Machine: Manages multiple operational states including normal operation, alert state, and emergency shutdown
-- Redundancy: Implements dual-channel threshold monitoring with cross-verification
-- Vehicle CAN Integration: Communicates with other vehicle systems for coordinated response
-
-Calibration of pressure thresholds is critical and varies based on vehicle mass, brake pad composition, and driving conditions.`,
+        heading: 'Schematic and Layout',
+        content: `The schematic was designed in Altium Designer, and the PCB was implemented as a 2-layer board with signal integrity kept in mind throughout the design process, especially since the circuit was entirely analog in nature.
+ `,
+        pdfFile: new URL('./BSPD_media/BSPD_CMOS.pdf', import.meta.url).href,
+        pdfPreviewImage: new URL('./BSPD_media/bspd.png', import.meta.url).href,
+        collageImages: [
+          
+          {
+            src: new URL('./BSPD_media/bspdlayren.png', import.meta.url).href,
+            alt: 'PCB Layout Rendering',
+          },
+          {
+            src: new URL('./BSPD_media/bspdlay.png', import.meta.url).href,
+            alt: 'PCB Layer View',
+          },
+          {
+            src: new URL('./BSPD_media/bspdlay2.png', import.meta.url).href,
+            alt: 'PCB Layout Detail',
+          },
+          
+        ],
+        collageDescription: 'Schematic, layout, and final assembly of the BSPD circuit.',
       },
       {
         heading: 'Testing & Validation',
-        content: `Comprehensive testing protocols were implemented to ensure system reliability:
-
-- Bench Testing: Validation of pressure sensor linearity and response time across operating range
-- System Integration Testing: Verification of correct operation with other vehicle control systems
-- Dynamic Testing: Real-world testing during high-acceleration events to confirm proper detection
-- Fault Injection Testing: Deliberate sensor faults to validate system fault detection and safe shutdown
-- Calibration Verification: Confirmation that all thresholds are correctly programmed
-
-Track testing provided real-world validation that the system performs reliably under actual racing conditions.`,
-      },
-      {
-        heading: 'Lessons & Future Improvements',
-        content: `Key lessons learned from BSPD development:
-
-- Pressure transducer selection is critical; tight tolerances and stability over temperature are essential
-- Adequate filtering is necessary to distinguish real brake faults from sensor noise
-- Redundancy must be built into both hardware and software for safety-critical systems
-- Proper calibration and testing on actual vehicles is irreplaceable
-
-Future improvements include:
-- Predictive algorithms to detect degrading brake performance before failure
-- Integration with regenerative braking system for coordinated brake force distribution
-- Wireless telemetry for real-time system monitoring during races
-- Machine learning for adaptive threshold adjustment based on driving conditions`,
+        content: `The BSPD circuit underwent rigorous testing, it was bench tested using a simulation jig then i was tested on the actual vehicle during the testing and  
+        <span style="color: #ffffff; font-weight: bold;">finally the BSPD was put on car that competed in the FB 2026 event and completed all the 4 dynamic events without any issues and the circuit performed flawlessly.`,
+        collageImages: [
+          {
+            src: new URL('./BSPD_media/bspdrealpower.jpeg', import.meta.url).href,
+            alt: 'Real Power Testing',
+          },
+          {
+            src: new URL('./BSPD_media/bspdrealvirt.jpeg', import.meta.url).href,
+            alt: 'Real Virtual Testing 1',
+          },
+          {
+            src: new URL('./BSPD_media/bspdrealvirt2.jpeg', import.meta.url).href,
+            alt: 'Real Virtual Testing 2',
+          },
+          {
+            src: new URL('./BSPD_media/intheboxbspd.jpeg', import.meta.url).href,
+            alt: 'Final Assembly',
+          },
+        ],
+        collageDescription: 'Testing and validation of the BSPD circuit during bench testing and vehicle integration.',
       },
     ],
   };

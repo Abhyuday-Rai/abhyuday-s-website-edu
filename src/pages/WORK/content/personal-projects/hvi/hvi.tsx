@@ -6,10 +6,10 @@ export const hviProject: Project = {
   description: 'High Voltage Indicator for EV automotive applications',
   category: 'previous',
   date: 'FEB 2026-MAR 2026',
-  image: '/uploads/hvi-banner.png',
+  image: new URL('./mediaHVI/hvir1.png', import.meta.url).href,
   link: '/project/hvi',
-  allRank: 1,
-  categoryRank: 1,
+  allRank: 2,
+  categoryRank: 2,
   passwordEnabled: false,
   password: '',
 };

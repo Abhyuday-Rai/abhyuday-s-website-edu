@@ -6,10 +6,10 @@ export const bspdProject: Project = {
   description: 'Safety device mandated by FSAE rules.',
   category: 'previous',
   date: 'JAN 2025 - MAR 2025',
-  image: new URL('./media_media/bspdcmos1.png', import.meta.url).href,
+  image: new URL('./BSPD_media/bspdcmos1.png', import.meta.url).href,
   link: '/project/bspd',
-  allRank: 4,
-  categoryRank: 2,
+  allRank: 3,
+  categoryRank: 3,
   passwordEnabled: true,
   password: '2006',
 };
