@@ -42,15 +42,13 @@ const BSPDProject: React.FC = () => {
         heading: 'Change Log',
         content: `The cicuit was to be redesigned for the upcomming season of 2026 and the below goals were to be achieved.:
 
-                   <span style="color: #ffffff; font-weight: bold;">1. changing the manual power reset to an automatic reset of the vehicle after 10s of no fault condition,</span> 
-          as per    T11.6.1  of  FB2026 rule book "The shutdown circuit must remain open until power cycling the LVMS or the BSPD may 
-reset itself if the opening condition is no longer present for more than 10 s."
+<span style="color: #ffffff; font-weight: bold;">1. changing the manual power reset to an automatic reset of the vehicle after 10s of no fault condition,</span> as per T11.6.1 of FB2026 rule book "The shutdown circuit must remain open until power cycling the LVMS or the BSPD may reset itself if the opening condition is no longer present for more than 10 s."
 
-this was achieved by adding a 555 timer IC based retrigerable monostatble circuit that would start the 10sec timer as soon as a fault appeared and went.
+This was achieved by adding a 555 timer IC based retriggerable monostable circuit that would start the 10 second timer as soon as a fault appeared and went.
 
-<span style="color: #ffffff; font-weight: bold;"> 2. changing the logic  level of the circuit from  5v to 12v in order to eliminate the need for a buck converter as the BSPD can directly run on 12 LV system </span>- this was achieved by changing the logic family from ls7400 series that can handle voltages upto 5v  to  CD4000 series CMOS logic family that can easily handle higher voltages like 12 hence decreasing the BOM of the entire pcb by reducing the buck converter and the pull up and pull down resisitors.
+<span style="color: #ffffff; font-weight: bold;">2. changing the logic level of the circuit from 5V to 12V in order to eliminate the need for a buck converter as the BSPD can directly run on 12V LV system</span> - this was achieved by changing the logic family from LS7400 series that can handle voltages up to 5V to CD4000 series CMOS logic family that can easily handle higher voltages like 12V, hence decreasing the BOM of the entire PCB by reducing the buck converter and the pull up and pull down resistors.
 
- <span style="color: #ffffff; font-weight: bold;"> 3. Aligning with the teams goal of reducing the vehicle's overall weight the circuit was to be made smaller and more compact to save space and weight.</span>
+<span style="color: #ffffff; font-weight: bold;">3. Aligning with the team's goal of reducing the vehicle's overall weight, the circuit was to be made smaller and more compact to save space and weight.</span>
 `,
       },
       
@@ -95,8 +93,7 @@ the flow of the circuit is as follows:
       },
       {
         heading: 'Testing & Validation',
-        content: `The BSPD circuit underwent rigorous testing, it was bench tested using a simulation jig then i was tested on the actual vehicle during the testing and  
-        <span style="color: #ffffff; font-weight: bold;">finally the BSPD was put on car that competed in the FB 2026 event and completed all the 4 dynamic events without any issues and the circuit performed flawlessly.`,
+        content: `The BSPD circuit underwent rigorous testing, it was bench tested using a simulation jig then it was tested on the actual vehicle during the testing and <span style="color: #ffffff; font-weight: bold;">finally the BSPD was put on car that competed in the FB 2026 event and completed all the 4 dynamic events without any issues and the circuit performed flawlessly.</span>`,
         collageImages: [
           {
             src: new URL('./BSPD_media/bspdrealpower.jpeg', import.meta.url).href,

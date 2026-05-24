@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowUpLeft, ArrowUpRight, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import MenuButton from './MenuButton';
@@ -38,6 +38,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
   nextProject,
 }) => {
   const navigate = useNavigate();
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
 
   return (
     <>
@@ -45,9 +46,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
       <MenuButton />
       <motion.div
         className="min-h-screen bg-background text-foreground"
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0 }}
       >
         {/* Banner Section */}
         <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
@@ -99,7 +100,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
               </h2>
               <div className="space-y-4 text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
                 {section.content.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx}>{paragraph}</p>
+                  <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph }}></p>
                 ))}
               </div>
               {section.image && (
@@ -109,10 +110,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                       <motion.img
                         src={section.image}
                         alt={section.heading}
-                        className="w-full h-auto rounded-lg shadow-lg object-cover"
+                        className="w-full h-auto rounded-lg shadow-lg object-cover cursor-pointer hover:shadow-xl transition-shadow"
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6 }}
+                        onClick={() => setExpandedImage(section.image!)}
                       />
                     </div>
                   </div>
@@ -165,10 +167,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                         key={imgIndex}
                         src={img.src}
                         alt={img.alt}
-                        className="w-full h-40 sm:h-48 md:h-56 rounded-lg shadow-lg object-cover hover:shadow-xl transition-shadow"
+                        className="w-full h-40 sm:h-48 md:h-56 rounded-lg shadow-lg object-cover hover:shadow-xl transition-shadow cursor-pointer"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: imgIndex * 0.1 }}
+                        onClick={() => setExpandedImage(img.src)}
                       />
                     ))}
                   </div>
@@ -232,6 +235,39 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
           </div>
         </div>
       </motion.div>
+
+      {/* Image Expansion Modal */}
+      {expandedImage && (
+        <motion.div
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setExpandedImage(null)}
+        >
+          <motion.div
+            className="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+          >
+            <motion.img
+              src={expandedImage}
+              alt="Expanded"
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            />
+            <motion.button
+              onClick={() => setExpandedImage(null)}
+              className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <X className="w-6 h-6 text-white" />
+            </motion.button>
+          </motion.div>
+        </motion.div>
+      )}
     </>
   );
 };
